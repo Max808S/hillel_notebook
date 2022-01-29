@@ -48,7 +48,6 @@ def add_note():
 
             # передаём данные из словаря в качестве аргумента функции 'writerow'
             writer_object.writerow(note_dict)
-
             f_object.close()
 
         print(f'Пользователь {first_name} {last_name} добавлен в таблицу.')
@@ -75,7 +74,7 @@ def edit_note():
     try:
         # поиск и удаление
         del_note()
-        # записсь новых данных
+        # запись новых данных
         add_note()
     except Exception as ex:
         print(f'{ex} \nЧто бы создать файл userbase, в главном меню нажмите [1]')
@@ -88,22 +87,19 @@ def search_name():
     try:
         # читаем csv и делим строку ","
         csv_file = csv.reader(open('userbase.csv', "r"), delimiter=",")
-        # csv_file['First name'] = csv_file['First name'].str.lower()
-
         input_data = input('\nВведите имя, фамилию или номер телефона пользователя, '
                            'которого нужно найти: ')
 
         # цикл по списку csv
-        abc = False
+        data_value = False
         for row in csv_file:
             if input_data in row:
-                abc = True
-            if abc:
+                data_value = True
+            if data_value:
                 print(row)
                 break
         else:
             print(f'Запись {input_data} не найдена.')
-
     except Exception as ex:
         print(f'{ex} \nЧто бы создать файл userbase, в главном меню нажмите [1]')
 
