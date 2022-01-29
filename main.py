@@ -64,7 +64,6 @@ def check_note():
         # читаем CSV файл
         df = pd.read_csv('userbase.csv', delimiter=',', encoding='cp1251')
         print(f'\nЗаписная книжка Hillel: \n\n{df}')
-
     except Exception as ex:
         print(f'{ex} \nЧто бы создать файл userbase, в главном меню нажмите [1]')
 
@@ -89,6 +88,7 @@ def search_name():
     try:
         # читаем csv и делим строку ","
         csv_file = csv.reader(open('userbase.csv', "r"), delimiter=",")
+        # csv_file['First name'] = csv_file['First name'].str.lower()
 
         input_data = input('\nВведите имя, фамилию или номер телефона пользователя, '
                            'которого нужно найти: ')
@@ -120,7 +120,6 @@ def del_note():
             rows = [row for row in csv.reader(in_file) if del_data not in row]
             in_file.seek(0)
             in_file.truncate()
-
             writer = csv.writer(in_file)
             writer.writerows(rows)
             print(f'{del_data} и сопутствующие данные удалены.')
@@ -175,10 +174,10 @@ def menu_interaction():
 
     while True:
         try:
-            user_input = int(input('Введите номер [menu]: '))
+            user_input = int(input('Главное меню [#]: '))
             if user_input == 7:
-                print('Good bye')
-                break
+                print('Notebook закрыт!')
+                exit()
             elif user_input == 1:
                 add_note()
                 cancel_menu()
@@ -208,7 +207,7 @@ def menu_interaction():
                         else:
                             print('Неверный ввод, попробуйте [1] или [2]')
                 except Exception as ex:
-                    print(f'{ex} \nЧто бы создать файл userbase, в главном меню нажмите [1] \n')
+                    print(f'{ex} \nИспользуйте [1] или [2] для выбора сортировки. \n')
             else:
                 print('Неправильный ввод! Используйте [1] [2] [3] [4] [5] [6] [7] для навигации: ')
         except Exception as ex:
